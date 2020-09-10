@@ -39,6 +39,14 @@ app.get('/users/:userId', (req, res) => {
   res.send(users[req.params.userId]);
 });
 
+app.get('/messages', (req, res) => {
+  res.send(Object.values(messages));
+});
+
+app.get('/messages/:messageId', (req, res) => {
+  res.send(messages[req.params.messageId]);
+});
+
 app.listen(port, () => {
   console.log('fuck outta here 3000');
 });
