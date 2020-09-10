@@ -7,20 +7,20 @@ const app = express();
 
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/users', (req, res) => {
   res.send('received a GET request');
 });
 
-app.post('/', (req, res) => {
+app.post('/users', (req, res) => {
  res.send('received a POST request');
 });
 
-app.put('/', (req, res) => {
- res.send('received a PUT request');
+app.put('/users/:userId', (req, res) => {
+ res.send(`received a PUT request on user ${req.params.userId}`);
 });
 
-app.delete('/', (req, res) => {
- res.send('received a DELETE request');
+app.delete('/users/:userId', (req, res) => {
+ res.send(`received a DELETE request on user ${req.params.userId}`);
 });
 
 app.listen(port, () => {
