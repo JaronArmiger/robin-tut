@@ -32,19 +32,11 @@ let messages = {
 };
 
 app.get('/users', (req, res) => {
-  res.send('received a GET request');
+  res.send(Object.values(users));
 });
 
-app.post('/users', (req, res) => {
- res.send('received a POST request');
-});
-
-app.put('/users/:userId', (req, res) => {
- res.send(`received a PUT request on user ${req.params.userId}`);
-});
-
-app.delete('/users/:userId', (req, res) => {
- res.send(`received a DELETE request on user ${req.params.userId}`);
+app.get('/users/:userId', (req, res) => {
+  res.send(users[req.params.userId]);
 });
 
 app.listen(port, () => {
