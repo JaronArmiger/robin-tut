@@ -1,9 +1,13 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 const port = process.env.PORT || 3000;
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
@@ -45,6 +49,17 @@ app.get('/messages', (req, res) => {
 
 app.get('/messages/:messageId', (req, res) => {
   res.send(messages[req.params.messageId]);
+});
+
+app.post('/messages', ( req, res) => {
+  const id = uuidv4();
+  const message = {
+  	id,
+  	text: req.body.text,
+  };
+
+  messages[id] = message;
+  return res.send(message);
 });
 
 app.listen(port, () => {
