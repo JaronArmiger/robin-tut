@@ -1,3 +1,8 @@
 import 'dotenv/config';
-console.log("fuck outta here bitch");
-console.log(process.env.MY_SECRET);
+import express from 'express';
+
+csont app = express();
+
+app.listen(3000, () => {
+  console.log('fuck outta here 3000');
+});
