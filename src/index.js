@@ -40,6 +40,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/session', (req, res) => {
+  return res.send(users[req.me.id]);
+});
+
 app.get('/users', (req, res) => {
   res.send(Object.values(users));
 });
@@ -66,6 +70,16 @@ app.post('/messages', ( req, res) => {
 
   messages[id] = message;
   return res.send(message);
+});
+
+app.put('/messages/:messageId', (req, res) => {
+  const message = messages[req.params.messageId];
+  if (message.userId === req.me.id) {
+  	message.text = req.body.text;
+  	res.send(message);
+  } else {
+  	res.send('Permission denied');
+  }
 });
 
 app.delete('/messages/:messageId', (req, res) => {
