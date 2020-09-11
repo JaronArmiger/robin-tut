@@ -68,6 +68,16 @@ app.post('/messages', ( req, res) => {
   return res.send(message);
 });
 
+app.delete('/messages/:messageId', (req, res) => {
+  const {
+  	[req.params.messageId]: message,
+  	...otherMessages
+  } = messages;
+
+  messages = otherMessages;
+  return res.send(message);
+});
+
 app.listen(port, () => {
   console.log('fuck outta here 3000');
 });
