@@ -29,7 +29,44 @@ app.use('/messages', routes.message);
 const eraseDatabaseOnSync = true
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
+  if (eraseDatabaseOnSync) {
+  	createUsersWithMessages();
+  }
+
   app.listen(process.env.PORT, () => {
     console.log('ay we in this');
   });
-})
+});
+
+const createUsersWithMessages = async () => {
+  await models.User.create(
+    {
+      username: 'yussef',
+      messages: [
+        {
+          text: 'I hope they say yussef',
+        }
+      ],
+    },
+    {
+      include: [models.Message],
+    },
+  );
+
+  await models.User.create(
+    {
+      username: 'ass ketchum',
+      messages: [
+       {
+         text: 'vamos a bailar'
+       },
+       {
+       	text: 'sleeeeeeeep',
+       },
+      ],
+    },
+    {
+      include: [models.Message],
+    }
+  );
+};
