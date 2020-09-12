@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-import models from './models';
+import models, { sequelize } from './models';
 import routes from './routes';
 
 const port = process.env.PORT || 3000;
@@ -26,6 +26,10 @@ app.use('/session', routes.session);
 app.use('/users', routes.user);
 app.use('/messages', routes.message);
 
-app.listen(port, () => {
-  console.log('fuck outta here 3000');
-});
+const eraseDatabaseOnSync = true
+
+sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
+  app.listen(process.env.PORT, () => {
+    console.log('ay we in this');
+  });
+})

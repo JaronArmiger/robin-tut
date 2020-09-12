@@ -1,3 +1,5 @@
+
+
 const user = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
   	username: {
@@ -11,8 +13,11 @@ const user = (sequelize, DataTypes) => {
   });
 
   User.associate = models => {
-  	User.hasMany(models.Message);
+  	User.hasMany(models.Message, { as: 'messages',
+      foreignKey: 'userId',
+      onDelete: 'CASCADE' });
   };
+
 
   User.findByLogin = async login => {
   	let user = await User.findOne({
@@ -24,8 +29,9 @@ const user = (sequelize, DataTypes) => {
   	  	where: { email: login },
   	  });
   	}
+    
   	return user;
-  }
+  };
   
   return User;
 };
