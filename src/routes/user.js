@@ -3,7 +3,8 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', (req, res) => {
-  return res.send(Object.values(req.context.models.users));
+  const users = await req.context.models.User.findAll();
+  return res.send(users);
 });
 
 router.get('/:userId', (req, res) => {
